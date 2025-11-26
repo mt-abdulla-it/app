@@ -4,8 +4,23 @@ include_once 'includes/database.class.php';
 include_once 'includes/user.class.php';
 include_once 'includes/session.class.php';
 
+global $__site_config;
+$__site_config = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/../abdulla-0310/photogramconfig.json');
 
 Session::start();
+
+function get_config($key, $default = null){
+    global $__site_config;
+    
+    $array = json_decode($__site_config, true);
+
+    if (isset($array[$key])) {
+        return $array[$key];
+    } else {
+        return $default;
+    }
+}
+
 function load_template($name){
   // include __DIR__."/../_templates/$name.php";
   include $_SERVER['DOCUMENT_ROOT'] . "/abdulla-0310/app/_templates/$name.php";

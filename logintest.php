@@ -4,8 +4,8 @@
 
 include 'libs/load.php';
 
-$user = "admin44";
-$pass = "123";
+$user = "test01";
+$pass = "1234";
 $result = null;
 
 if(isset($_GET['logout'])){
@@ -15,8 +15,14 @@ if(isset($_GET['logout'])){
 
 if (Session::get('is_loggedin')) {
     $userdata = Session::get('session_user');
-    //print_r($userdata);
-    print("Welcome Back, " . $userdata['username'] . "<br>");
+    $userobj = new User($userdata);
+    print_r($userdata);
+    print_r($userobj);
+    print("Welcome Back, " . $userobj -> getfirstname ());
+    print("<br>" . $userobj -> getBio ());
+    $userobj -> setBio ("This is my new bio set at/" . $userobj -> getUsername () );
+    $userobj -> setfacebook ("https://facebook.com/" . $userobj -> getUsername () );
+     print("<br>" . $userobj -> getfacebook ());
     $result = $userdata;
 } else {
     print ("No Session Found, trying to login now.<br>");
@@ -24,7 +30,9 @@ if (Session::get('is_loggedin')) {
     //print_r($result);
 
     if ($result) {
-        echo "Login successful! " . $result['username'];
+        $userobj = new User($user);
+
+        echo "Login successful! " . $userobj -> getUsername ();
         Session::set('is_loggedin', true);
         Session::set('session_user', $result);
     } else {

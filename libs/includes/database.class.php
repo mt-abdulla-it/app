@@ -6,10 +6,10 @@ class Database
     public static function getConnction()
     {
         if (Database::$conn == null) {
-            $servername = "localhost";
-            $username = "abdulla-0310";
-            $password = "200309201173";
-            $dbname = "abdulla_newdb";
+            $servername = get_config('db_server');
+            $username = get_config('db_username');
+            $password = get_config('db_password');
+            $dbname = get_config('db_name');
 
             mysqli_report(MYSQLI_REPORT_OFF);
 
